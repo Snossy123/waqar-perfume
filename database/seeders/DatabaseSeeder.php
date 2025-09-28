@@ -31,34 +31,7 @@ class DatabaseSeeder extends Seeder
 
     public function createUsers(): void
     {
-        User::firstOrCreate(
-            [
-                'email' => 'admin@klaksat.com',
-                'name' => [
-                    'ar' => 'كلاكسات',
-                    'en' => 'klaksat'
-                ],
-                'phone' => '01032163233',
-                'is_active' => true
-            ]
-        );
         
-        $fakerAr = Faker::create('ar_EG');
-        $fakerEn = Faker::create('en_US');
-
-        foreach (range(1, 10) as $index) {
-            User::firstOrCreate(
-                [
-                    'email' => $fakerEn->unique()->safeEmail, // Generates a unique fake email
-                    'name' => [
-                        'en' => $fakerEn->name, // Generates an English name
-                        'ar' => $fakerAr->name
-                    ], // Generates an Arabic name
-                    'phone' => $fakerAr->numerify('0##########'), // Generates a fake phone number
-                    'is_active' => $fakerEn->boolean(80) // Randomly set 'is_active' to 80% of true
-                ]
-            );
-        }
     }
     public function createRoles(): void
     {
