@@ -1,0 +1,39 @@
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-dev
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: trio
+      MYSQL_USER: snossy
+      MYSQL_PASSWORD: 123
+    volumes:
+    - mysql-data:/var/lib/mysql
+    networks:
+    - trio_travel
+    ports:
+    - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    container_name: phpmyadmin
+    restart: unless-stopped
+    ports:
+        - "8080:80"
+    environment:
+        PMA_HOST: mysql
+        # PMA_USER: snossy
+        # PMA_PASSWORD: 123
+    depends_on:
+        - mysql
+    networks:
+        - trio_travel
+
+
+networks:
+    trio_travel:
+        external: true
+volumes:
+    mysql-data:
+        driver: local

@@ -1,0 +1,25 @@
+version: "3.8"
+
+name: ${APP_NAME}
+
+services:
+  backend:
+    build:
+      context: ${PROJECT_ROOT}
+      dockerfile: ${DOCKERFILE_PATH}
+    container_name: backend-dev-2
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
+    restart: always
+    ports:
+      - "9002:80"
+    volumes:
+      - ${PROJECT_ROOT}:/var/www/html
+    environment:
+      APP_NAME: ${APP_NAME}
+    command: bash -c "chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && apache2-foreground"
+    networks:
+      - trio_travel
+
+networks:
+  trio_travel:
+    external: true
