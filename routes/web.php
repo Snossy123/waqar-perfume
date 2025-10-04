@@ -3,9 +3,8 @@
 use App\Http\Controllers\Admin\{
     BodyStyleController,
     BrandController,
-    CarModelController,
+    ProductModelController,
     DashboardController,
-    DriveTypeController,
     EngineTypeController,
     FinancingRequestController,
     TransmissionTypeController,
@@ -22,7 +21,11 @@ use App\Http\Controllers\Admin\{
 use App\Http\Controllers\Admin\NotificationController;
 
 use App\Http\Controllers\Admin\BannerController;
-use App\Http\Controllers\{CarController, UserController};
+use App\Http\Controllers\{
+    CategoryController,
+    ProductController, 
+    UserController
+};
 use App\Http\Controllers\StartAdController;
 
 use App\Models\Quiz;
@@ -77,14 +80,14 @@ Route::middleware(['auth:admin'])->group(function () {
             ->name('admin.financing-requests.update-status');
 
 
-        Route::prefix('cars')->group(function () {
-            Route::get('/', [CarController::class, 'index'])->name('admin.cars');
-            Route::get('/{id}', [CarController::class, 'show'])->where(['id'=>'[0-9]+'])->name('admin.car.show');
-            Route::get('/add', [CarController::class, 'add'])->name('admin.car.add');
-            Route::post('/', [CarController::class, 'store'])->name('admin.car.store');
-            Route::get('/edit/{id}', [CarController::class, 'edit'])->name('admin.car.edit');
-            Route::put('/{id}', [CarController::class, 'update'])->name('admin.car.update');
-            Route::delete('/{id}', [CarController::class, 'destroy'])->name('admin.car.destroy');
+        Route::prefix('products')->group(function () {
+            Route::get('/', [ProductController::class, 'index'])->name('admin.products');
+            Route::get('/{id}', [ProductController::class, 'show'])->where(['id'=>'[0-9]+'])->name('admin.product.show');
+            Route::get('/add', [ProductController::class, 'add'])->name('admin.product.add');
+            Route::post('/', [ProductController::class, 'store'])->name('admin.product.store');
+            Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('admin.product.edit');
+            Route::put('/{id}', [ProductController::class, 'update'])->name('admin.product.update');
+            Route::delete('/{id}', [ProductController::class, 'destroy'])->name('admin.product.destroy');
         });
 
 
@@ -95,11 +98,11 @@ Route::middleware(['auth:admin'])->group(function () {
             Route::delete('/{id}', [BrandController::class, 'destroyBrand'])->name('admin.brands.destroy');
         });
 
-        Route::prefix('CarModel')->group(function () {
-            Route::get('/', [CarModelController::class, 'index'])->name('admin.CarModels');
-            Route::post('/', [CarModelController::class, 'store'])->name('admin.CarModel.store');
-            Route::put('/{id}', [CarModelController::class, 'edit'])->name('admin.CarModel.edit');
-            Route::delete('/{id}', [CarModelController::class, 'destroy'])->name('admin.CarModel.destroy');
+        Route::prefix('ProductModel')->group(function () {
+            Route::get('/', [ProductModelController::class, 'index'])->name('admin.ProductModels');
+            Route::post('/', [ProductModelController::class, 'store'])->name('admin.ProductModel.store');
+            Route::put('/{id}', [ProductModelController::class, 'edit'])->name('admin.ProductModel.edit');
+            Route::delete('/{id}', [ProductModelController::class, 'destroy'])->name('admin.ProductModel.destroy');
         });
 
 
@@ -127,11 +130,11 @@ Route::middleware(['auth:admin'])->group(function () {
         });
 
 
-        Route::prefix('DriveTypes')->group(function () {
-            Route::get('/', [DriveTypeController::class, 'index'])->name('admin.DriveTypes');
-            Route::post('/', [DriveTypeController::class, 'store'])->name('admin.DriveType.store');
-            Route::put('/{id}', [DriveTypeController::class, 'edit'])->name('admin.DriveType.edit');
-            Route::delete('/{id}', [DriveTypeController::class, 'destroy'])->name('admin.DriveType.destroy');
+        Route::prefix('Categories')->group(function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('admin.Categories');
+            Route::post('/', [CategoryController::class, 'store'])->name('admin.Category.store');
+            Route::put('/{id}', [CategoryController::class, 'edit'])->name('admin.Category.edit');
+            Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('admin.Category.destroy');
         });
 
 
